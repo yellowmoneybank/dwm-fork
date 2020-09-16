@@ -59,12 +59,17 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st","-f", "DejaVu Sans Mono-11", "-e", "tmux", "new-session", "-t", "main", NULL };
 static const char *lockcmd[]  = { "slock", "systemctl", "suspend", NULL};
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = {
+    "st", "-t",   scratchpadname, "-g", "120x34", "-f", "DejaVu Sans Mono-11",
+    "-e", "tmux", "new-session",  "-t", "sp",       NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = lockcmd} },
+	{MODKEY,                        XK_z,      togglescratch,  {.v = scratchpadcmd}},
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_n,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_r,      focusstack,     {.i = -1 } },
@@ -114,4 +119,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
