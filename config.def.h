@@ -26,13 +26,15 @@ static const char *colors[][3]      = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
+
     /* xprop(1):
      *	WM_CLASS(STRING) = instance, class
      *	WM_NAME(STRING) = title
      */
 
-		/* class      instance    title       tags mask     isfloating   monitor    scratch key */
-  { NULL,       NULL,   "scratchpad",   0,            1,           -1,       's' },
+    /* class      instance    title       tags mask   iscentered     isfloating monitor    scratch key */
+    {NULL, NULL, "scratchpad", 0, 1, 1, -1, 's'},
+
 };
 
 /* layout(s) */
@@ -66,7 +68,10 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st","-f", "DejaVu Sans Mono-11", "-e", "tmux", "new-session", "-t", "main", NULL };
 static const char *lockcmd[]  = { "slock", "systemctl", "suspend", NULL};
 /*First arg only serves to match against key in rules*/
-static const char *scratchpadcmd[] = {"s", "st", "-t", "scratchpad", NULL};
+
+static const char *scratchpadcmd[] = {
+  "s","st", "-t", "scratchpad", "-g", "120x34", "-f", "DejaVu Sans Mono-11",
+      "-e", "tmux", "new-session",  "-t", "sp",       NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -125,4 +130,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
