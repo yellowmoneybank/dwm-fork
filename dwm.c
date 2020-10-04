@@ -1602,7 +1602,7 @@ run(void)
 void
 runautostart(void)
 {
-	char *pathpfx;
+    char *pathpfx;
 	char *path;
 	char *xdgdatahome;
 	char *home;
@@ -1660,19 +1660,27 @@ runautostart(void)
 		free(pathpfx);
 	}
 
-	if (access(path, X_OK) == 0)
-		system(path);
+	if (access(path, X_OK) == 0){
+	  int i = system(path);
+	  if (i == -1){
+            fprintf(stderr, "dwm: autostart failed");
+      }
+    }
 
-	/* now the non-blocking script */
+        /* now the non-blocking script */
 	if (sprintf(path, "%s/%s", pathpfx, autostartsh) <= 0) {
 		free(path);
 		free(pathpfx);
 	}
 
-	if (access(path, X_OK) == 0)
-		system(strcat(path, " &"));
+	if (access(path, X_OK) == 0){
+	  int i = system(strcat(path, " &"));
+	  if (i == -1){
+		fprintf(stderr, "dwm: autostart failed");
+	  }
+	}
 
-	free(pathpfx);
+    free(pathpfx);
 	free(path);
 }
 
