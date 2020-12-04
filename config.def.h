@@ -65,6 +65,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *passmenu[] = { "passmenu", "-i", NULL };
 static const char *termcmd[]  = { "st","-f", "DejaVu Sans Mono-11", "-e", "tmux", "new-session", "-t", "main", NULL };
 static const char *lockcmd[]  = { "slock", "systemctl", "suspend", NULL};
 /*First arg only serves to match against key in rules*/
@@ -78,6 +79,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = lockcmd} },
+	{ MODKEY,                       XK_p,      spawn,          {.v = passmenu} },
 	{ MODKEY,                       XK_z,      togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_n,      focusstack,     {.i = +1 } },
